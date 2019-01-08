@@ -1135,7 +1135,7 @@ runStmt stmt step = do
 
 -- | Clean up the GHCi environment after a statement has run
 afterRunStmt :: (SrcSpan -> Bool) -> GHC.ExecResult -> GHCi GHC.ExecResult
-afterRunStmt step_here run_result = do
+afterRunStmt !step_here run_result = do
   resumes <- GHC.getResumeContext
   case run_result of
      GHC.ExecComplete{..} ->

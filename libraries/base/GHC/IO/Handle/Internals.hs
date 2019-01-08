@@ -160,7 +160,7 @@ withHandle__' fun h m act =
    return ()
 
 do_operation :: String -> Handle -> (Handle__ -> IO a) -> MVar Handle__ -> IO a
-do_operation fun h act m = do
+do_operation !fun !h !act m = do
   h_ <- takeMVar m
   checkHandleInvariants h_
   act h_ `catchException` handler h_

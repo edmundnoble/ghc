@@ -638,7 +638,7 @@ wormhole dflags r = wormholeRef dflags (unsafeForeignRefToRemoteRef r)
 -- only works when the interpreter is running in the same process as
 -- the compiler, so it fails when @-fexternal-interpreter@ is on.
 wormholeRef :: DynFlags -> RemoteRef a -> IO a
-wormholeRef dflags _r
+wormholeRef dflags !_r
   | gopt Opt_ExternalInterpreter dflags
   = throwIO (InstallationError
       "this operation requires -fno-external-interpreter")

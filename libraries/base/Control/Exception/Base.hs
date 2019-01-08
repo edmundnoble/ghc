@@ -1,6 +1,7 @@
 {-# LANGUAGE Trustworthy #-}
 {-# LANGUAGE NoImplicitPrelude, MagicHash #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE BangPatterns #-}
 
 -----------------------------------------------------------------------------
 -- |
@@ -130,7 +131,7 @@ catchJust
         -> IO a                   -- ^ Computation to run
         -> (b -> IO a)            -- ^ Handler
         -> IO a
-catchJust p a handler = catch a handler'
+catchJust p a !handler = catch a handler'
   where handler' e = case p e of
                         Nothing -> throwIO e
                         Just b  -> handler b

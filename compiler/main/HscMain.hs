@@ -962,7 +962,7 @@ hscCheckSafeImports tcg_env = do
 -- collected and unioned.  Specifically see the Note [RnNames . Tracking Trust
 -- Transitively] and the Note [RnNames . Trust Own Package].
 checkSafeImports :: TcGblEnv -> Hsc TcGblEnv
-checkSafeImports tcg_env
+checkSafeImports !tcg_env
     = do
         dflags <- getDynFlags
         imps <- mapM condense imports'

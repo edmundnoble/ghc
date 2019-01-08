@@ -1,6 +1,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ViewPatterns #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE BangPatterns #-}
 
 -----------------------------------------------------------------------------
 --
@@ -63,7 +64,7 @@ getImports :: DynFlags
                   [(Maybe FastString, Located ModuleName)],
                   Located ModuleName)
               -- ^ The source imports, normal imports, and the module name.
-getImports dflags buf filename source_filename = do
+getImports dflags buf filename !source_filename = do
   let loc  = mkRealSrcLoc (mkFastString filename) 1 1
   case unP parseHeader (mkPState dflags buf loc) of
     PFailed _ span err -> do
@@ -294,7 +295,7 @@ getOptions' dflags toks
 -- Throws a 'SourceError' if the input list is non-empty claiming that the
 -- input flags are unknown.
 checkProcessArgsResult :: MonadIO m => DynFlags -> [Located String] -> m ()
-checkProcessArgsResult dflags flags
+checkProcessArgsResult !dflags flags
   = when (notNull flags) $
       liftIO $ throwIO $ mkSrcErr $ listToBag $ map mkMsg flags
     where mkMsg (dL->L loc flag)

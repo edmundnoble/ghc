@@ -694,7 +694,7 @@ logOutput dflags sty msg
   = putLogMsg dflags NoReason SevOutput noSrcSpan sty msg
 
 prettyPrintGhcErrors :: ExceptionMonad m => DynFlags -> m a -> m a
-prettyPrintGhcErrors dflags
+prettyPrintGhcErrors !dflags
     = ghandle $ \e -> case e of
                       PprPanic str doc ->
                           pprDebugAndThen dflags panic (text str) doc

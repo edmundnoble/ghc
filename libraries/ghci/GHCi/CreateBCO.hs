@@ -37,7 +37,7 @@ createBCOs bcos = do
   mapM mkRemoteRef hvals
 
 createBCO :: Array Int HValue -> ResolvedBCO -> IO HValue
-createBCO _   ResolvedBCO{..} | resolvedBCOIsLE /= isLittleEndian
+createBCO !_   ResolvedBCO{..} | resolvedBCOIsLE /= isLittleEndian
   = throwIO (ErrorCall $
         unlines [ "The endianness of the ResolvedBCO does not match"
                 , "the systems endianness. Using ghc and iserv in a"

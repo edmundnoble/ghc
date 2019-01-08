@@ -3,6 +3,7 @@
            , NoImplicitPrelude
            , RecordWildCards
            , NondecreasingIndentation
+           , BangPatterns
   #-}
 {-# OPTIONS_GHC -Wno-unused-matches #-}
 
@@ -98,7 +99,7 @@ hClose_maybethrow Nothing  h = return ()
 hClose_maybethrow (Just e) h = hClose_rethrow e h
 
 hClose_rethrow :: SomeException -> Handle -> IO ()
-hClose_rethrow e h =
+hClose_rethrow e !h =
   case fromException e of
     Just ioe -> ioError (augmentIOError ioe "hClose" h)
     Nothing  -> throwIO e

@@ -2528,7 +2528,7 @@ primop  RaiseOp "raise#" GenPrimOp
 primop  RaiseIOOp "raiseIO#" GenPrimOp
    a -> State# RealWorld -> (# State# RealWorld, b #)
    with
-   strictness  = { \ _arity -> mkClosedStrictSig [topDmd, topDmd] exnRes }
+   strictness  = { \ _arity -> mkClosedStrictSig [topDmd, topDmd] topRes }
    out_of_line = True
    has_side_effects = True
 
